@@ -1,0 +1,227 @@
+<%- include('partials/head') %>
+
+<body class="w-full bg-gradient-to-br from-blue-900 to-blue-950">
+  <%- include('partials/header') %>
+
+  <main class="w-full min-h-screen text-white py-10 px-4 sm:px-6">
+    <!-- Page Heading with animated gradient -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-amber-500 animate-gradient-x mb-4">
+        Welcome to the Dashboard
+      </h1>
+      <p class="text-blue-200 max-w-2xl mx-auto">Manage your content, track analytics, and connect with your audience</p>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="bg-blue-800/40 backdrop-blur-sm p-4 rounded-xl border border-blue-700/50">
+        <p class="text-blue-300 text-sm">Total Users</p>
+        <p class="text-2xl font-bold">1,248</p>
+        <p class="text-green-400 text-xs">↑ 12% this month</p>
+      </div>
+      <div class="bg-blue-800/40 backdrop-blur-sm p-4 rounded-xl border border-blue-700/50">
+        <p class="text-blue-300 text-sm">Active Now</p>
+        <p class="text-2xl font-bold">84</p>
+        <p class="text-amber-400 text-xs">↗ 3% from yesterday</p>
+      </div>
+      <div class="bg-blue-800/40 backdrop-blur-sm p-4 rounded-xl border border-blue-700/50">
+        <p class="text-blue-300 text-sm">Conversion</p>
+        <p class="text-2xl font-bold">3.2%</p>
+        <p class="text-green-400 text-xs">↑ 0.8% this week</p>
+      </div>
+      <div class="bg-blue-800/40 backdrop-blur-sm p-4 rounded-xl border border-blue-700/50">
+        <p class="text-blue-300 text-sm">Avg. Session</p>
+        <p class="text-2xl font-bold">4m 12s</p>
+        <p class="text-red-400 text-xs">↓ 0.5% this month</p>
+      </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-gradient-to-br from-blue-800/50 to-blue-900/50 p-6 rounded-2xl border border-blue-700/30 shadow-lg hover:shadow-blue-500/20 transition-all hover:-translate-y-1">
+        <div class="flex items-center mb-4">
+          <div class="p-2 rounded-lg bg-blue-700/50 mr-3">
+            <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold">Analytics</h2>
+        </div>
+        <p class="text-sm text-blue-200 mb-4">Track user behavior and engagement metrics in real-time.</p>
+        <a href="#" class="text-amber-400 text-sm font-medium hover:text-amber-300 flex items-center">
+          View reports 
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-800/50 to-blue-900/50 p-6 rounded-2xl border border-blue-700/30 shadow-lg hover:shadow-blue-500/20 transition-all hover:-translate-y-1">
+        <div class="flex items-center mb-4">
+          <div class="p-2 rounded-lg bg-blue-700/50 mr-3">
+            <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold">Content</h2>
+        </div>
+        <p class="text-sm text-blue-200 mb-4">Manage all your posts, articles, and media in one place.</p>
+        <a href="#" class="text-amber-400 text-sm font-medium hover:text-amber-300 flex items-center">
+          Explore content 
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-800/50 to-blue-900/50 p-6 rounded-2xl border border-blue-700/30 shadow-lg hover:shadow-blue-500/20 transition-all hover:-translate-y-1">
+        <div class="flex items-center mb-4">
+          <div class="p-2 rounded-lg bg-blue-700/50 mr-3">
+            <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold">Users</h2>
+        </div>
+        <p class="text-sm text-blue-200 mb-4">View and manage all registered users and their permissions.</p>
+        <a href="#" class="text-amber-400 text-sm font-medium hover:text-amber-300 flex items-center">
+          Manage users 
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+      <!-- Recent Activity -->
+      <div class="bg-blue-800/30 backdrop-blur-sm p-6 rounded-2xl border border-blue-700/30">
+        <h3 class="text-xl font-semibold mb-4 flex items-center">
+          <svg class="w-5 h-5 text-amber-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+          Recent Activity
+        </h3>
+        <div class="space-y-4">
+          <div class="flex items-start">
+            <div class="bg-blue-700/50 rounded-full p-2 mr-3">
+              <svg class="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">New user registered</p>
+              <p class="text-xs text-blue-300">John Doe - 2 minutes ago</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div class="bg-blue-700/50 rounded-full p-2 mr-3">
+              <svg class="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">Content published</p>
+              <p class="text-xs text-blue-300">"Getting Started Guide" - 1 hour ago</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div class="bg-blue-700/50 rounded-full p-2 mr-3">
+              <svg class="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">System update</p>
+              <p class="text-xs text-blue-300">Version 2.3.1 deployed - 3 hours ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="bg-blue-800/30 backdrop-blur-sm p-6 rounded-2xl border border-blue-700/30">
+        <h3 class="text-xl font-semibold mb-4 flex items-center">
+          <svg class="w-5 h-5 text-amber-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          Quick Actions
+        </h3>
+        <div class="grid grid-cols-2 gap-3">
+          <button class="bg-blue-700/50 hover:bg-blue-700/70 text-sm p-3 rounded-lg flex flex-col items-center transition">
+            <svg class="w-5 h-5 text-amber-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            New Post
+          </button>
+          <button class="bg-blue-700/50 hover:bg-blue-700/70 text-sm p-3 rounded-lg flex flex-col items-center transition">
+            <svg class="w-5 h-5 text-amber-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            Add User
+          </button>
+          <button class="bg-blue-700/50 hover:bg-blue-700/70 text-sm p-3 rounded-lg flex flex-col items-center transition">
+            <svg class="w-5 h-5 text-amber-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Settings
+          </button>
+          <button class="bg-blue-700/50 hover:bg-blue-700/70 text-sm p-3 rounded-lg flex flex-col items-center transition">
+            <svg class="w-5 h-5 text-amber-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            Calendar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Contact Form -->
+    <form class="bg-blue-800/30 backdrop-blur-sm p-6 rounded-2xl max-w-2xl mx-auto border border-blue-700/30 shadow-lg">
+      <h3 class="text-2xl font-semibold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-amber-500">
+        Contact Our Team
+      </h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-blue-200 mb-1 text-sm font-medium" for="name">Name</label>
+          <input id="name" type="text" class="w-full p-3 rounded-lg bg-blue-900/50 border border-blue-700/50 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent placeholder-blue-400/70" placeholder="Your Name" />
+        </div>
+        <div>
+          <label class="block text-blue-200 mb-1 text-sm font-medium" for="email">Email</label>
+          <input id="email" type="email" class="w-full p-3 rounded-lg bg-blue-900/50 border border-blue-700/50 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent placeholder-blue-400/70" placeholder="you@example.com" />
+        </div>
+      </div>
+      
+      <div class="mb-4">
+        <label class="block text-blue-200 mb-1 text-sm font-medium" for="subject">Subject</label>
+        <select id="subject" class="w-full p-3 rounded-lg bg-blue-900/50 border border-blue-700/50 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent appearance-none">
+          <option selected disabled>Select a subject</option>
+          <option>General Inquiry</option>
+          <option>Technical Support</option>
+          <option>Feedback</option>
+          <option>Other</option>
+        </select>
+      </div>
+      
+      <div class="mb-6">
+        <label class="block text-blue-200 mb-1 text-sm font-medium" for="message">Message</label>
+        <textarea id="message" rows="4" class="w-full p-3 rounded-lg bg-blue-900/50 border border-blue-700/50 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent placeholder-blue-400/70" placeholder="Your message..."></textarea>
+      </div>
+      
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <input id="terms" type="checkbox" class="w-4 h-4 rounded bg-blue-900/50 border-blue-700/50 focus:ring-amber-500/50">
+          <label for="terms" class="ml-2 text-sm text-blue-300">I agree to the terms</label>
+        </div>
+        <button type="submit" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-3 rounded-lg font-medium shadow-lg hover:shadow-amber-500/30 transition-all transform hover:scale-105">
+          Send Message
+        </button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

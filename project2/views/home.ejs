@@ -1,0 +1,146 @@
+<%- include('partials/head') %>
+
+<body class="bg-gray-100 min-h-screen">
+  <%- include('partials/header') %>
+
+  <!-- Hero Section -->
+  <section class="bg-white py-16 px-6 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Find Your Next Getaway</h1>
+    <p class="text-lg text-gray-600 mb-6">Stay in amazing places with comfort and style.</p>
+    <a href="/login" class="inline-block bg-rose-500 hover:bg-rose-600 text-white font-semibold px-6 py-3 rounded-xl transition">Start Exploring</a>
+  </section>
+
+  <!-- Filter Buttons -->
+  <div class="px-6 mt-8 flex flex-wrap gap-4 justify-center">
+    <button class="px-4 py-2 rounded-full border border-gray-300 bg-white hover:bg-gray-200">All</button>
+    <button class="px-4 py-2 rounded-full border border-gray-300 bg-white hover:bg-gray-200">Beach</button>
+    <button class="px-4 py-2 rounded-full border border-gray-300 bg-white hover:bg-gray-200">Mountains</button>
+    <button class="px-4 py-2 rounded-full border border-gray-300 bg-white hover:bg-gray-200">City</button>
+  </div>
+
+  <!-- Featured Listings -->
+  <main class="px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <% const listings = [
+      {
+        title: "Modern Loft in New York",
+        photo: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        features: "2 guests · 1 bedroom · 1 bath",
+        price: "$180",
+        rating: "★★★★☆"
+      },
+      {
+        title: "Beach House in Malibu",
+        photo: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        features: "4 guests · 2 bedrooms · Ocean view",
+        price: "$320",
+        rating: "★★★★★"
+      },
+      {
+        title: "Mountain Cabin in Colorado",
+        photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        features: "6 guests · 3 bedrooms · Hot tub",
+        price: "$250",
+        rating: "★★★★☆"
+      },
+      {
+        title: "Charming Studio in Paris",
+        photo: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        features: "2 guests · Studio · Eiffel view",
+        price: "$150",
+        rating: "★★★☆☆"
+      },
+      {
+        title: "City Apartment in Tokyo",
+        photo: "https://images.unsplash.com/photo-1580128637343-d0c6c9e30b8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        features: "3 guests · 1 bedroom · Fast WiFi",
+        price: "$190",
+        rating: "★★★★☆"
+      },
+      {
+        title: "Rustic Farmhouse in Tuscany",
+        photo: "https://images.unsplash.com/photo-1587308537509-2271f93c2c45?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        features: "5 guests · 2 bedrooms · Vineyard view",
+        price: "$210",
+        rating: "★★★★★"
+      },
+      {
+        title: "Cozy Bungalow in Bali",
+        photo: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        features: "2 guests · 1 bedroom · Private pool",
+        price: "$140",
+        rating: "★★★★☆"
+      },
+      {
+        title: "Luxury Villa in Dubai",
+        photo: "https://images.unsplash.com/photo-1618221195710-dd9a89e32b3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        features: "8 guests · 4 bedrooms · Oceanfront",
+        price: "$520",
+        rating: "★★★★★"
+      }
+    ]; %>
+
+    <% listings.forEach(listing => { %>
+    <div class="bg-white rounded-2xl shadow hover:shadow-xl hover:scale-[1.02] transition-transform duration-300 overflow-hidden">
+      <img src="<%= listing.photo %>" alt="<%= listing.title %>" class="w-full h-48 object-cover">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800"><%= listing.title %></h2>
+        <p class="text-gray-500 text-sm mt-1"><%= listing.features %></p>
+        <p class="text-yellow-500 mt-1"><%= listing.rating %> <span class="text-sm text-gray-500">(120 reviews)</span></p>
+        <p class="mt-2 text-gray-800 font-bold"><%= listing.price %> <span class="text-sm text-gray-500">/ night</span></p>
+      </div>
+    </div>
+    <% }); %>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 border-t mt-12">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm text-gray-700">
+      <div>
+        <h3 class="font-semibold mb-3">About</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:underline">How Airbnb works</a></li>
+          <li><a href="#" class="hover:underline">Newsroom</a></li>
+          <li><a href="#" class="hover:underline">Investors</a></li>
+          <li><a href="#" class="hover:underline">Airbnb Plus</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-3">Community</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:underline">Diversity & Belonging</a></li>
+          <li><a href="#" class="hover:underline">Against Discrimination</a></li>
+          <li><a href="#" class="hover:underline">Accessibility</a></li>
+          <li><a href="#" class="hover:underline">Invite Friends</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-3">Host</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:underline">Host your home</a></li>
+          <li><a href="#" class="hover:underline">Host an experience</a></li>
+          <li><a href="#" class="hover:underline">Responsible hosting</a></li>
+          <li><a href="#" class="hover:underline">Resource Center</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-3">Support</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:underline">Help Center</a></li>
+          <li><a href="#" class="hover:underline">Cancellation options</a></li>
+          <li><a href="#" class="hover:underline">Neighborhood Support</a></li>
+          <li><a href="#" class="hover:underline">Trust & Safety</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t py-6 px-6 flex flex-col md:flex-row items-center justify-between text-gray-500 text-sm">
+      <p>© <%= new Date().getFullYear() %> Airbnb Clone. All rights reserved.</p>
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <!-- Social icons (same as before) -->
+      </div>
+    </div>
+  </footer>
+</body>

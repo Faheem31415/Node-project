@@ -1,0 +1,32 @@
+<nav class="bg-gradient-to-r from-amber-700 to-amber-800 p-4 shadow-lg shadow-amber-900/20">
+  <div class="container mx-auto flex flex-wrap items-center justify-between">
+    <!-- Logo / Brand -->
+    <a href="/" class="text-amber-50 text-2xl font-bold">airbnb</a>
+
+    <!-- Mobile Menu Button -->
+    <button id="menu-toggle" class="text-amber-50 md:hidden focus:outline-none focus:ring-2 focus:ring-amber-200">
+      <svg class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Links -->
+    <div id="menu" class="w-full md:flex md:items-center md:w-auto hidden md:space-x-6 mt-4 md:mt-0">
+      <a href="/" class="block text-amber-50 text-lg font-medium px-3 py-2 rounded hover:bg-amber-600 transition">Home</a>
+  
+      <a href="/register-home" class="block text-amber-50 text-lg font-medium px-3 py-2 rounded hover:bg-amber-600 transition">Add-Home</a>
+
+      <a href="/added-home" class="block text-amber-50 text-lg font-medium px-3 py-2 rounded hover:bg-amber-600 transition">Added-Homes</a>
+      
+    </div>
+  </div>
+
+  <script>
+    // Toggle mobile menu
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+</nav>

@@ -1,0 +1,50 @@
+<%- include('partials/head') %>
+
+<body class="bg-slate-100 min-h-screen">
+  <%- include('partials/header') %>
+
+  <h1 class="text-4xl font-bold text-center text-slate-800 my-10">🏘️ Available Homes</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6 pb-16">
+    <% registeredhomes.forEach(home => { %>
+      <div class="bg-white shadow-lg rounded-2xl overflow-hidden transition hover:shadow-2xl duration-300">
+        <!-- photo -->
+        <img class="w-full h-60 object-cover" src="<%= home.photo || 'https://source.unsplash.com/featured/?house,interior' %>" alt="Home photo">
+
+        <!-- Content -->
+        <div class="p-5 flex flex-col gap-4">
+          <h2 class="text-xl font-semibold text-gray-800">
+            🏠 <span class="text-gray-600">Name:</span> <%= home.homename %>
+          </h2>
+          <h3 class="text-lg text-gray-700">
+            📍 <span class="text-gray-600">Location:</span> <%= home.location %>
+          </h3>
+          <p class="text-lg text-indigo-600 font-semibold">💰 ₹<%= home.price %></p>
+
+          <!-- Actions -->
+          <div class="flex flex-col gap-2">
+            <a href="/user/home-list/home-details/<%= home._id %>" class="bg-blue-600 hover:bg-blue-500 text-white py-2 text-center rounded-lg font-medium transition">
+              🔍 View Details
+            </a>
+            <button class="bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-lg font-medium transition">
+              📆 Book
+            </button>
+
+            <!-- Favourites Form -->
+            <form action="/user/home-list/favourites/<%= home._id %>" method="POST">
+              <input type="hidden" name="id" value="<%= home._id %>">
+              <input type="hidden" name="homename" value="<%= home.homename %>">
+              <input type="hidden" name="location" value="<%= home.location %>">
+              <input type="hidden" name="price" value="<%= home.price %>">
+              <input type="hidden" name="photo" value="<%= home.photo %>">
+              <input type="hidden" name="homescol" value="<%= home.homescol %>">
+              <button type="submit" class="bg-orange-600 hover:bg-orange-500 text-white py-2 rounded-lg font-medium transition">
+                ❤️ Add to Favourites
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</body>

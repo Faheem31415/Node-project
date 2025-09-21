@@ -1,0 +1,41 @@
+<%- include('partials/head') %>
+
+<body class="bg-slate-100 min-h-screen">
+  <%- include('partials/header') %>
+
+  <h1 class="text-4xl font-bold text-center text-slate-800 my-10">🏠 Your Listed Homes</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6 pb-16">
+    <% registeredhomes.forEach(home => { %>
+      <div class="bg-white shadow-xl rounded-2xl overflow-hidden transform transition hover:scale-105 duration-300 ease-in-out">
+        <!-- photo -->
+        <img class="w-full h-60 object-cover" src="<%= home.photo || 'https://source.unsplash.com/featured/?house,villa' %>" alt="Home photo">
+
+        <!-- Details -->
+        <div class="p-5 flex flex-col gap-4">
+          <h2 class="text-xl font-semibold text-slate-800">
+            <span class="text-slate-500">Name:</span> <%= home.homename %>
+          </h2>
+          <h3 class="text-lg font-medium text-slate-700">
+            <span class="text-slate-500">Location:</span> <%= home.location %>
+          </h3>
+          <p class="text-lg text-indigo-600 font-bold">₹<%= home.price %></p>
+
+          <!-- Actions -->
+          <div class="flex gap-3 mt-3">
+            <a href="/host/added-home/edit-home/<%= home._id %>?editing=true"
+              class="flex-1 bg-amber-500 hover:bg-amber-400 text-white text-center py-2 rounded-lg text-sm font-medium transition">
+              ✏️ Edit
+            </a>
+            <form action="/host/delete-home/<%= home._id %>" method="POST" class="flex-1">
+              <button type="submit"
+                class="w-full bg-red-500 hover:bg-red-400 text-white py-2 rounded-lg text-sm font-medium transition">
+                🗑️ Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</body>

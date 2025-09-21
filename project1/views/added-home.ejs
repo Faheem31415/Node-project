@@ -1,0 +1,29 @@
+<%- include('partials/head') %>
+
+<body>
+    <%- include('partials/header') %>
+    <h1 class="text-3xl text-center my-6 font-bold">Added Homes</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
+      <% homes.forEach(home => { %>
+        <div class="w-80 h-auto bg-white shadow-2xl rounded-2xl mx-auto">
+          <div class="w-full h-auto">
+            <img class="w-full h-60 rounded-t-2xl object-cover" src="<%= home.image %>" alt="Home Image">
+          </div>
+          <div class="w-full flex justify-between py-3 px-3">
+            <div class="flex flex-col gap-5">
+              <h1 class="text-2xl font-semibold">
+                Location: <span class="text-xl text-blue-600 pl-2"><%= home.location %></span>
+              </h1>
+              <p class="text-2xl text-red-500">Price: ₹<%= home.price %>/n</p>
+            </div>
+            <div class="flex flex-col gap-4">
+              <a href="/added-home/<%= home.id %>" class="w-full bg-slate-700 px-4 py-1 rounded-2xl text-white cursor-pointer hover:bg-slate-600 text-xl">Details</a>
+              <button class="w-full px-4 py-1 bg-amber-600 rounded-2xl cursor-pointer hover:bg-amber-500 text-xl">Book</button>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+    
+</body>
