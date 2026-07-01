@@ -9,6 +9,10 @@ const session = require("express-session");
 const { default: mongoose } = require("mongoose");
 const MongoDBstore = require("connect-mongodb-session")(session);
 const multer = require("multer");
+const dns =require('dns')
+
+//change dns
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 //local module
 const rootDir = require("./utilities/pathutil");
@@ -95,7 +99,7 @@ app.use("/host", HostRouters);
 //error handling
 app.use(errorpage);
 
-const PORT = 4000;
+const PORT = 5000;
 
 mongoose
   .connect(DB_PATH)
