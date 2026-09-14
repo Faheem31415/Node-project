@@ -1,5 +1,4 @@
 const Home = require("../models/home");
-const user = require("../models/user");
 
 exports.registationpage = (req, res) => {
   res.render("edithosthome", {
@@ -10,14 +9,15 @@ exports.registationpage = (req, res) => {
   });
 };
 
-exports.edit_registationpage = (req, res) => {
+exports.edit_registationpage = (req, res, next) => {
   const homeid = req.params.homeid;
   const editing = req.query.editing === "true";
-  Home.findById(homeid).then((home) => {
-    if (!home) {
-      console.log("Home not found for editing");
-      return res.redirect("/host/added-home");
-    } else {
+  Home.findById(homeid)
+    .then((home) => {
+      if (!home) {
+        console.log("Home not found for editing:", homeid);
+        return res.redirect("/host/added-home");
+      }
       res.render("edithosthome", {
         pagetitle: "Edit-Home",
         editing: editing,
@@ -25,63 +25,76 @@ exports.edit_registationpage = (req, res) => {
         isLogin: req.isLogin,
         user: req.session.user,
       });
-    }
-  });
+    })
+    .catch((err) => {
+      console.error("Error fetching home for edit:", err);
+      next(err);
+    });
 };
 
-exports.registeredpage = (req, res) => {
+exports.registeredpage = (req, res, next) => {
   const { homename, location, price, homescol } = req.body;
 
-  if(!req.file){
-    return res.status(400).send("No file uploaded");
+  if (!req.file) {
+    return res.status(400).render("edithosthome", {
+      pagetitle: "Add-Home",
+      editing: false,
+      isLogin: req.isLogin,
+      user: req.session.user,
+      error: "Please upload a photo.",
+    });
+  }
+
+  if (!homename || !location || !price || !homescol) {
+    return res.status(400).render("edithosthome", {
+      pagetitle: "Add-Home",
+      editing: false,
+      isLogin: req.isLogin,
+      user: req.session.user,
+      error: "All fields are required.",
+    });
   }
 
   const photo = req.file.path;
-  if (homename && location && price  && homescol) {
-    const home = new Home({ homename, location, price, photo, homescol });
+  const home = new Home({ homename, location, price, photo, homescol });
 
-    home
-      .save()
-      .then(() => {
-        res.redirect("/host/added-home");
-      })
-      .catch((err) => {
-        console.error("Error saving home:", err);
-      });
-  } else {
-    res.status(500).send("Fields should not be empty");
-    console.log("Error");
-  }
+  home
+    .save()
+    .then(() => {
+      res.redirect("/host/added-home");
+    })
+    .catch((err) => {
+      console.error("Error saving home:", err);
+      next(err);
+    });
 };
 
-exports.posteditpage = (req, res) => {
+exports.posteditpage = (req, res, next) => {
   const { homename, location, price, homescol, id } = req.body;
   Home.findById(id)
     .then((home) => {
+      if (!home) {
+        return res.status(404).redirect("/host/added-home");
+      }
       home.homename = homename;
       home.price = price;
       home.location = location;
       home.homescol = homescol;
-      if(req.file) {
+      if (req.file) {
         home.photo = req.file.path;
       }
-
-      home
-        .save()
-        .then(() => {
-          res.redirect("/host/added-home");
-        })
-        .catch((err) => {
-          console.error("Error saving home:", err);
-          res.status(500).send("Internal Server Error");
-        });
+      return home.save();
+    })
+    .then(() => {
+      res.redirect("/host/added-home");
     })
     .catch((err) => {
-      console.error("Error saving home:", err);
+      console.error("Error updating home:", err);
+      next(err);
     });
 };
 
-exports.addedhomepage = (req, res) => {
+exports.addedhomepage = (req, res, next) => {
   Home.find()
     .then((homes) => {
       res.render("added-home", {
@@ -92,19 +105,19 @@ exports.addedhomepage = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.error("Error fetching homes:", err);
+      next(err);
     });
 };
 
-exports.postdeletehome = (req, res) => {
+exports.postdeletehome = (req, res, next) => {
   const homeid = req.params.homeid;
-
   Home.findByIdAndDelete(homeid)
     .then(() => {
       res.redirect("/host/added-home");
     })
     .catch((err) => {
       console.error("Error deleting home:", err);
-      res.status(500).send("Failed to delete home.");
+      next(err);
     });
 };

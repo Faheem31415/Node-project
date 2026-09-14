@@ -9,7 +9,7 @@
     <% registeredhomes.forEach(home => { %>
       <div class="bg-white shadow-lg rounded-2xl overflow-hidden transition hover:shadow-2xl duration-300">
         <!-- photo -->
-        <img class="w-full h-60 object-cover" src="<%= home.photo || 'https://source.unsplash.com/featured/?house,interior' %>" alt="Home photo">
+        <img class="w-full h-60 object-cover" src="<%= home.photo || 'https://placehold.co/600x400/e2e8f0/94a3b8?text=No+Image' %>" alt="Home photo">
 
         <!-- Content -->
         <div class="p-5 flex flex-col gap-4">
@@ -33,12 +33,7 @@
             <!-- Favourites Form -->
             <form action="/user/home-list/favourites/<%= home._id %>" method="POST">
               <input type="hidden" name="id" value="<%= home._id %>">
-              <input type="hidden" name="homename" value="<%= home.homename %>">
-              <input type="hidden" name="location" value="<%= home.location %>">
-              <input type="hidden" name="price" value="<%= home.price %>">
-              <input type="hidden" name="photo" value="<%= home.photo %>">
-              <input type="hidden" name="homescol" value="<%= home.homescol %>">
-              <button type="submit" class="bg-orange-600 hover:bg-orange-500 text-white py-2 rounded-lg font-medium transition">
+              <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white py-2 rounded-lg font-medium transition">
                 ❤️ Add to Favourites
               </button>
             </form>

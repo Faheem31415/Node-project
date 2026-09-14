@@ -7,7 +7,6 @@ const userSchema=mongoose.Schema({
   lastname:{
     type:String,
     required:[true,"lastname is required"],
-    unique:true,
   },
   email:{
     type:String,

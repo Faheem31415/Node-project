@@ -3,47 +3,50 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
 
-
 exports.getLogin = (req, res) => {
   res.render("auth/login", {
     pagetitle: "Login",
     isLogin: false,
-    oldInput: {email: "", password: ""}, // <-- provide default empty fields
-    errors: [], // <-- provide default empty array
-    user: {}
+    oldInput: { email: "", password: "" },
+    errors: [],
+    user: null,
   });
 };
 
-exports.postLogin = async (req, res) => {
+exports.postLogin = async (req, res, next) => {
   const { email, password } = req.body;
-  const user=await User.findOne({email:email});
-  if (!user) {
-    return res.status(422).render("auth/login", {
-      pagetitle: "Login",
-      isLogin: false,
-      errors: ["Invalid email or password"],
-      oldInput: { email, password },
-      user: req.session.user,
-    });
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(422).render("auth/login", {
+        pagetitle: "Login",
+        isLogin: false,
+        errors: ["Invalid email or password"],
+        oldInput: { email, password },
+        user: null,
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(422).render("auth/login", {
+        pagetitle: "Login",
+        isLogin: false,
+        errors: ["Invalid email or password"],
+        oldInput: { email, password },
+        user: null,
+      });
+    }
+
+    req.session.isLogin = true;
+    req.session.user = user;
+    await req.session.save();
+    res.redirect("/");
+  } catch (err) {
+    console.error("Login error:", err);
+    next(err);
   }
-  const isMatch=await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(422).render("auth/login", {
-      pagetitle: "Login",
-      isLogin: false,
-      errors: ["Invalid password"],
-      oldInput: { email },
-      user: req.session.user,
-    });
-  } 
-
-  req.session.isLogin = true;
-  req.session.user = user;
-  await req.session.save();
-  res.redirect("/");
 };
-
-
 
 exports.postLogout = (req, res) => {
   req.session.destroy(() => {
@@ -51,13 +54,11 @@ exports.postLogout = (req, res) => {
   });
 };
 
-// In authController.js
-exports.getSignup = (req, res, next) => {
+exports.getSignup = (req, res) => {
   res.render("auth/signup", {
     pagetitle: "SignUp",
-    errors: [], // <-- provide default empty array
+    errors: [],
     oldInput: {
-      // <-- provide default empty fields
       firstname: "",
       lastname: "",
       email: "",
@@ -67,7 +68,7 @@ exports.getSignup = (req, res, next) => {
       terms: false,
     },
     isLogin: false,
-    user:{}
+    user: null,
   });
 };
 
@@ -79,7 +80,7 @@ exports.postSignup = [
     .matches(/^[A-Za-z\s]+$/)
     .withMessage("First Name should contain only alphabets"),
 
-  check("lastname") // ✅ Fix typo: was 'latname'
+  check("lastname")
     .trim()
     .notEmpty()
     .withMessage("Last Name is required")
@@ -89,7 +90,7 @@ exports.postSignup = [
   check("email")
     .isEmail()
     .withMessage("Please enter a valid email")
-    .normalizeEmail(), // ✅ Fix typo: was 'normallizeEmail'
+    .normalizeEmail(),
 
   check("password")
     .isLength({ min: 6 })
@@ -110,44 +111,45 @@ exports.postSignup = [
     .equals("on")
     .withMessage("You must agree to the terms and conditions"),
 
-  (req, res, next) => {
+  async (req, res, next) => {
     const { firstname, lastname, password, UserType, email } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      // You can render the form again with error messages here
       return res.status(422).render("auth/signup", {
         pagetitle: "SignUp",
         errors: errors.array().map((err) => err.msg),
         oldInput: { firstname, lastname, password, UserType, email },
         isLogin: false,
-        user:{}
+        user: null,
       });
     }
 
-    bcrypt
-      .hash(password, 12)
-      .then((hashedPassword) => {
-        const user = new User({
-          firstname,
-          lastname,
-          email,
-          password: hashedPassword,
-          UserType,
-        });
-        return user.save();
-      })
-      .then(() => {
-        res.redirect("/login");
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).render("auth/signup", {
+    try {
+      // Check if email already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(422).render("auth/signup", {
           pagetitle: "SignUp",
-          errors: ["An error occurred while signing up."],
-          oldInput: { firstname, lastname, password, UserType },
+          errors: ["An account with this email already exists."],
+          oldInput: { firstname, lastname, password, UserType, email },
           isLogin: false,
-          user: {}
+          user: null,
         });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 12);
+      const user = new User({
+        firstname,
+        lastname,
+        email,
+        password: hashedPassword,
+        UserType,
       });
+      await user.save();
+      res.redirect("/login");
+    } catch (err) {
+      console.error("Signup error:", err);
+      next(err);
+    }
   },
 ];
