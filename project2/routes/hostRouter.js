@@ -2,20 +2,23 @@ const express = require("express");
 const storeRouter = express.Router();
 
 const homesController = require("../controller/hostController");
+const { upload } = require("../utilities/s3Uploader");
 
 // added homes
 storeRouter.get("/added-home", homesController.addedhomepage);
 
-//after edithome page
-storeRouter.post("/registered-home", homesController.registeredpage);
+//after edithome page — multipart upload middleware applied here only
+storeRouter.post(
+  "/registered-home",
+  upload.single("photo"),
+  homesController.registeredpage
+);
 
 // to add home
 storeRouter.get("/register-home", homesController.registationpage);
 
-
-
-//after addhome registation
-storeRouter.post("/edit-home", homesController.posteditpage);
+//after addhome registration — multipart upload middleware applied here only
+storeRouter.post("/edit-home", upload.single("photo"), homesController.posteditpage);
 
 //for home editing
 storeRouter.get(

@@ -9,7 +9,6 @@ const app = express();
 const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoDBstore = require("connect-mongodb-session")(session);
-const multer = require("multer");
 const dns = require("dns");
 
 //change dns
@@ -49,40 +48,10 @@ store.on("error", (err) => {
   console.error("Session store error:", err);
 });
 
-// Create uploads directory if it doesn't exist
-if (!fs.existsSync("uploads")) {
-  fs.mkdirSync("uploads");
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    const timestamp = new Date().toISOString().replace(/:/g, "-");
-    cb(null, timestamp + "-" + file.originalname);
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
-  if (allowedTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new Error("Invalid file type. Only JPEG and PNG are allowed."), false);
-  }
-};
-
 app.use(express.urlencoded({ extended: true }));
-app.use(multer({ storage, fileFilter }).single("photo"));
 app.use(express.static(path.join(rootDir, "public")));
+// Serve legacy local uploads for backwards compatibility
 app.use("/uploads", express.static(path.join(rootDir, "uploads")));
-app.use("/host/uploads", express.static(path.join(rootDir, "uploads")));
-app.use("/user/uploads", express.static(path.join(rootDir, "uploads")));
-app.use(
-  "/user/home-list/home-details/uploads",
-  express.static(path.join(rootDir, "uploads"))
-);
 
 //session
 app.use(

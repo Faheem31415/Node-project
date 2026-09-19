@@ -1,4 +1,17 @@
 const Home = require("../models/home");
+const { deleteFile, AWS_CONFIGURED } = require("../utilities/s3Uploader");
+
+// ── Helper: extract the usable photo URL/path from req.file ───────────────
+// When S3 is active, req.file.location is the public HTTPS URL.
+// When falling back to local disk, req.file.path is the relative disk path.
+const getPhotoUrl = (file) => {
+  if (!file) return null;
+  if (AWS_CONFIGURED && file.location) {
+    return file.location; // full S3 HTTPS URL
+  }
+  // Normalize local path to always start with /uploads/ for consistent linking
+  return "/" + file.path.replace(/\\/g, "/");
+};
 
 exports.registationpage = (req, res) => {
   res.render("edithosthome", {
@@ -55,7 +68,7 @@ exports.registeredpage = (req, res, next) => {
     });
   }
 
-  const photo = req.file.path;
+  const photo = getPhotoUrl(req.file);
   const home = new Home({ homename, location, price, photo, homescol });
 
   home
@@ -72,7 +85,7 @@ exports.registeredpage = (req, res, next) => {
 exports.posteditpage = (req, res, next) => {
   const { homename, location, price, homescol, id } = req.body;
   Home.findById(id)
-    .then((home) => {
+    .then(async (home) => {
       if (!home) {
         return res.status(404).redirect("/host/added-home");
       }
@@ -80,8 +93,11 @@ exports.posteditpage = (req, res, next) => {
       home.price = price;
       home.location = location;
       home.homescol = homescol;
+
       if (req.file) {
-        home.photo = req.file.path;
+        // Delete the old photo before replacing it
+        await deleteFile(home.photo);
+        home.photo = getPhotoUrl(req.file);
       }
       return home.save();
     })
@@ -112,8 +128,13 @@ exports.addedhomepage = (req, res, next) => {
 
 exports.postdeletehome = (req, res, next) => {
   const homeid = req.params.homeid;
-  Home.findByIdAndDelete(homeid)
-    .then(() => {
+  Home.findById(homeid)
+    .then(async (home) => {
+      if (home) {
+        // Delete the photo from S3 / disk before removing the DB record
+        await deleteFile(home.photo);
+        await Home.findByIdAndDelete(homeid);
+      }
       res.redirect("/host/added-home");
     })
     .catch((err) => {

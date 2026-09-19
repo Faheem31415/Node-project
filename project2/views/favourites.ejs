@@ -9,7 +9,7 @@
         <div class="w-80 h-auto bg-white shadow-2xl rounded-2xl mx-auto">
           <div class="w-full h-auto">
             <img class="w-full h-60 rounded-t-2xl 
-                    object-cover" src="<%= home.photo %>" alt="home.photo">
+                    object-cover" src="<%= home.photo || 'https://placehold.co/600x400/e2e8f0/94a3b8?text=No+Image' %>" alt="<%= home.homename %>">
           </div>
           <div class="w-full flex justify-between py-3 px-3">
             <div class="flex flex-col gap-5">
